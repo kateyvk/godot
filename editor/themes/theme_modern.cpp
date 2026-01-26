@@ -219,9 +219,12 @@ void ThemeModern::populate_shared_styles(const Ref<EditorTheme> &p_theme, Editor
 		p_theme->set_color("separator_color", EditorStringName(Editor), p_config.separator_color);
 
 		// Additional editor colors.
+		Color selection_color = p_config.dark_theme ? Color(0.3, 0.3, 0.3) : Color(0.7, 0.7, 0.7);
+		p_theme->set_color("box_selection_fill_color", EditorStringName(Editor), selection_color * Color(1, 1, 1, 0.12));  //mono_color dependant on light or dark mode, either (1,1,1) or (0,0,0)
+		p_theme->set_color("box_selection_stroke_color", EditorStringName(Editor), selection_color * Color(1, 1, 1, 0.4));
 
-		p_theme->set_color("box_selection_fill_color", EditorStringName(Editor), p_config.mono_color * Color(1.0, 0.65, 0.0, 0.12)); //change to orange for a test
-		p_theme->set_color("box_selection_stroke_color", EditorStringName(Editor), p_config.mono_color * Color(1, 1, 1, 0.4));
+		//p_theme->set_color("box_selection_fill_color", EditorStringName(Editor), p_config.mono_color * Color(1, 1, 1, 0.12));  //mono_color dependant on light or dark mode, either (1,1,1) or (0,0,0)
+		//p_theme->set_color("box_selection_stroke_color", EditorStringName(Editor), p_config.mono_color * Color(1, 1, 1, 0.4));
 
 		p_theme->set_color("axis_x_color", EditorStringName(Editor), Color(0.96, 0.20, 0.32));
 		p_theme->set_color("axis_y_color", EditorStringName(Editor), Color(0.53, 0.84, 0.01));
