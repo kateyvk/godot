@@ -3495,9 +3495,19 @@ void Viewport::push_input(RequiredParam<InputEvent> rp_event, bool p_local_coord
 	}
 
 	Ref<InputEventMouse> me = ev;
-	if (me.is_valid()) {
-		_update_mouse_over(me);
-	}
+    if (me.is_valid()) {
+        if (is_sub_viewport() && !is_attached_in_viewport() && viewport_textures.size() > 0) {
+            Vector2 pos = me->get_position();
+            bool inside = (pos.x >= 0 && pos.y >= 0 && pos.x < size.width && pos.y < size.height);
+            if (inside && !gui.mouse_in_viewport) {
+                notify_mouse_entered();
+            } else if (!inside && gui.mouse_in_viewport) {
+                notify_mouse_exited();
+            }
+        }
+ 
+        _update_mouse_over(me);
+    }
 
 	if (is_embedding_subwindows() && _sub_windows_forward_input(ev)) {
 		set_input_as_handled();
